@@ -8,10 +8,30 @@ var draw = new Audio('carta.mp3');
 var win = new Audio('win.mp3')
 var i = 0;
 var budget = 1000;
+var tirare = true;
+var winstreak = 0;
+var Valorepuntata = 0
+var winstreak = 0;
 document.getElementById("Budget").innerHTML=budget + "€";
 
 draw.volume = 1;
 
+    function BlackJackCheck (){
+        if (totaleBancone == 21){
+            alert("L'avversario ha fatto BlackJack!")
+            document.getElementById("Tira").disabled = true
+            document.getElementById("Stai").disabled = true
+            document.getElementById("Double").disabled = true
+            document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
+        }
+        if (totaleTu == 21){
+            alert("Hai fatto BlackJack! 1.5x ")
+            budget = Valorepuntata * 1.5;
+            document.getElementById("Tira").disabled = true
+            document.getElementById("Stai").disabled = true
+            document.getElementById("Double").disabled = true
+        }
+    }
 
     function BancoCartaCoperta(){
 
@@ -41,19 +61,24 @@ draw.volume = 1;
         else if (carta%13 == 1){
             totaleBancone +=11
             carta_coperta = 11
+            AssiBanco ++
         }
         else {
             totaleBancone+=carta%13
             carta_coperta = carta%13;
         }
-        
-        carta_coperta = carta
 
+        console.log(carta_coperta)
+        
         console.log(totaleBancone);
 
     }
     
     function BancoCartaScoperta(){
+
+        document.querySelectorAll("#carta").forEach(el => {
+            el.classList.remove('animazione');
+          });
         
         draw.play();
 
@@ -82,21 +107,32 @@ draw.volume = 1;
         }
         else if (carta%13 ==1 ){
             totaleBancone +=11
+            AssiBanco ++
         }
         else {
-            totaleBancone+=carta%13
+            totaleBancone += carta % 13
         }
         
         console.log(totaleBancone);
 
-        document.getElementById("PunteggioBanco").innerHTML = "Banco: ? +" + (totaleBancone - carta_coperta);
+        if (!tirare){
+            document.getElementById("PunteggioBanco").innerHTML = "Banco: " + (totaleBancone);
+        }
+        else{
+            document.getElementById("PunteggioBanco").innerHTML = "Banco: ? +" + (totaleBancone - carta_coperta);
+        }
     }
 
     function Stai (){
 
-        console.log(carta_coperta)
+        tirare = false
+        
+        document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
 
-        document.getElementsByName("coperta")[0].src = "cards/"+carta_coperta + ".png"
+        console.log(carteUscite[0])
+
+
+        document.getElementById("PunteggioBanco").innerHTML= "Banco:" + totaleBancone
 
         if (totaleBancone > totaleTu) {
             document.getElementById("Sconfitta").classList.remove("nascosto")
@@ -108,12 +144,16 @@ draw.volume = 1;
                 BancoCartaScoperta();
             }while (totaleBancone < totaleTu)
             if (totaleBancone > 21) {
-
+                
             }
             if (totaleBancone == 21) {
 
             } 
         }
+
+        document.getElementById("Tira").disabled = true
+        document.getElementById("Stai").disabled = true
+        document.getElementById("Double").disabled = true
 
 
     }
@@ -121,7 +161,8 @@ draw.volume = 1;
     function TiraCarta(){
 
         draw.play();
-    
+        
+        // Per ogni ELEMENTO della lista che riporta querySelectorAll fai ...
         document.querySelectorAll("#carta").forEach(el => {
             el.classList.remove('animazione');
           });
@@ -150,6 +191,7 @@ draw.volume = 1;
         }
         else if (carta%13 == 1){
             totaleTu+=11
+            AssiTu ++
         }
         else {
             totaleTu+=carta%13
@@ -163,7 +205,11 @@ draw.volume = 1;
     
     function Start (){
 
-        totaleBancone =0;
+        tirare = true
+        document.getElementById("Tira").disabled = false
+        document.getElementById("Stai").disabled = false
+        document.getElementById("Double").disabled = false
+        totaleBancone = 0;
         totaleTu = 0;
         AssiTu = 0;
         AssiBanco = 0;
@@ -176,7 +222,13 @@ draw.volume = 1;
         document.getElementById("menu").classList.add("nascosto")
 
         document.getElementById("Bancone").classList.remove("nascosto")
-            
+        
+        document.getElementById("Dati").classList.remove("nascosto");
+
+        document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 100px">Puntata: ${Valorepuntata}</h1>`;
+
+        document.getElementById("Dati").innerHTML += '<h1 style="font-size: 100px;">Vittorie consecutive: '+ winstreak +'</h1>'
+
         setTimeout (BancoCartaCoperta,300);
             
         setTimeout (TiraCarta,1000)
@@ -184,10 +236,16 @@ draw.volume = 1;
         setTimeout (BancoCartaScoperta, 1600)
         
         setTimeout (TiraCarta,2300)
+        
+        setTimeout (BlackJackCheck, 2500)
+
+        
 }
 
 function esci(){
     document.getElementById("Sconfitta").classList.add("nascosto")
+    document.getElementById("Vittoria").classList.add("nascosto")
+    document.getElementById("Dati").classList.add("nascosto")
     document.getElementById("Bancone").classList.add("nascosto")
     document.getElementById("menu").classList.remove("nascosto")
 }
@@ -211,7 +269,7 @@ function puntata (){
 }
 function chiudiPuntata(){
     var Valorepuntata = document.getElementById("ValoreBet").value;
-    if (Valorepuntata == ""){
+    if (Valorepuntata == 0 || Valorepuntata == ""){
         if (confirm("Non hai puntato niente,sicuro di voler continuare?")){
             document.getElementById("bet").style.display="none";
         }
@@ -225,6 +283,14 @@ function chiudiPuntata(){
     }
 }
 
+function Vittoria (){
+    budget += Valorepuntata
+    document.getElementById("Tira").disabled = true
+    document.getElementById("Stai").disabled = true
+    document.getElementById("Double").disabled = true
+    winstreak ++;
+}
+
 function Rules() {
     document.getElementById("rules").style.display="block";
 }
@@ -232,26 +298,3 @@ function Rules() {
 function chiudiRules(){
         document.getElementById("rules").style.display="none";
 }
-
-/*function banco(){
-
-    let numeroCasuale = Math.floor(Math.random() * 52) + 1;
-
-    document.getElementById("Banco").innerHTML += '<img src="cards/back.png" id="carta"></img>';
-
-    carta_coperta = numeroCasuale%13;
-    
-    console.log(carta_coperta);
-
-}
-
-function tu(){
-    let numeroCasuale = Math.floor(Math.random() * 52) + 1;
-
-    let path = "cards/" + numeroCasuale + ".png";
-
-    document.getElementById("Tu").innerHTML += '<img src="' + path + '" id="carta"></img>';
-
-    console.log(numeroCasuale%13);
-
-}*/

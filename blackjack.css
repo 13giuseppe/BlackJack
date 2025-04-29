@@ -106,7 +106,14 @@ body{
   font-size: 70px; 
 }
 
-#Sconfitta{
+#Dati {
+  position: absolute;
+  float: none;
+  bottom: 600px;
+  left: 1400px;
+}
+
+#Sconfitta,#Vittoria{
   position: absolute !important;
   float: none !important;
   top: 120px;
