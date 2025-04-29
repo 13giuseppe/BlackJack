@@ -1,0 +1,8 @@
+<p>Nel BlackJack si gioca in 2: 
+il banco, che da anche le carte, e il giocatore.
+Ad ogni giocatore ad inizio gioco vengono date 2 carte, una coperta e una scoperta.
+il giocatore può chiedere per una carta (Tira), stare (Stai), raddoppiare (Double) e "splittare" (Split) 
+L'obiettivo del gioco è quello di arrivare ad un valore complessivo delle carte a 21.
+Le carte dal 2 al 10 valgono quanto il loro numero,
+l'asso vale sia 1 sia 11,
+le figure (J,Q,K) valgono 10 </p>

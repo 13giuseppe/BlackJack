@@ -1,0 +1,28 @@
+<body bgcolor="black" onload="banco(),tu()">
+    <div id="Bancone">
+    <center>
+        <img src="ChatGPT Image 13 apr 2025, 18_28_47.png" alt="" id="Titolo">
+    </center><br>
+    <script src="blackjack.js"></script>
+
+    <!-- Banco-->
+     
+    <center>
+        <h1 id="dealer">Banco:</h1>
+        <div id="Banco"></div>
+    </center>
+
+    <br><br><br>
+
+    <!--Tu-->
+
+    <center>
+        <h1 id="">Tu:</h1>
+        <br>
+        <div id="Tu"></div>
+        <br><br>
+        <button onclick="TiraCarta()" id="Tira">Tira</button>
+    </center>
+    </div>
+
+</body>

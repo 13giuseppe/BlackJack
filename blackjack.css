@@ -1,0 +1,200 @@
+#Tira, #Stai,#Esci,#Riprova {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  border-radius: 10%;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 50px;
+  width: 250px;
+  height: 200px;
+
+}
+.nascosto{
+  display:none
+}
+#Double{
+  display: none;
+}
+
+
+/* 
+dotted - Defines a dotted border
+dashed - Defines a dashed border
+solid - Defines a solid border
+double - Defines a double border
+groove - Defines a 3D grooved border. The effect depends on the border-color value
+ridge - Defines a 3D ridged border. The effect depends on the border-color value
+inset - Defines a 3D inset border. The effect depends on the border-color value
+outset - Defines a 3D outset border. The effect depends on the border-color value
+none - Defines no border
+hidden - Defines a hidden border
+*/
+
+#carta {
+  border: 4px ridge black;
+  border-radius: 8%;
+  transform: translate(0px);
+  position: relative;
+  width: 170px;     /*1,2x*/
+  height: 228px;    /*1,2x*/
+}
+
+.animazione{
+  animation-name: AnimazioneCarta;
+  animation-duration: 0.5s
+}
+
+@keyframes AnimazioneCarta{
+  100% {
+    transform: translate(0, 0) rotate(-20deg);
+  }
+  0% {
+    transform: translate(calc(100vw - 5%), calc(50vh - 5%)) rotate(0deg);
+  }
+}
+
+#Bancone {
+  background-color: green;
+  background-image: linear-gradient(rgb(2, 80, 2));
+  border: 20px solid rgb(73, 30, 2);
+  border-radius: 0 0 42% 42%;
+  padding-bottom: 250px;
+  animation-name: opac;
+  animation-duration: 1000ms;
+
+  /*background-color: #0b6623;
+  background-image:
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxmaWx0ZXIgaWQ9J25vaXNlJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWwnIGJhc2VGcmVxdWVuY3k9JzAuNScgbnVtT2N0YXZlcz0nNScgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjwvZmlsdGVyPjxcmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9InVybCgjbm9pc2UpIiAvPjwvc3ZnPg==");
+  background-size: cover;
+  background-blend-mode: overlay;*/
+}
+
+#Titolo{
+  width: 640px;
+  height: 360px;
+
+  
+  transform: translate(-930px,230px);
+  float: none;
+  position: absolute;
+  
+}
+
+body{
+  background-color: #000000 !important;
+}
+
+.noanimations {
+  animation: none !important;
+}
+
+/* Idea di Vincenzo Starace */
+#carta:hover{
+  
+  transform: scale(1.2) !important;
+  transition: 500ms;
+  
+}
+#carta:not(:hover){
+  transition: 350ms;
+}
+
+#PunteggioBanco, #PunteggioTu{
+  font-size: 70px; 
+}
+
+#Sconfitta{
+  position: absolute !important;
+  float: none !important;
+  top: 120px;
+  right: 120px;
+  /*transform: translate(350%,-120%) !important;*/
+  animation-name: opac;
+}
+.transizione {
+
+  transition: 1s !important;
+  animation-name: opac;
+  animation-duration: 6s;
+}
+
+@keyframes opac{from{opacity:0} to{opacity:1}}
+
+#menu {
+  background-color: green;
+  padding: 100px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  text-align: center;
+  width: 1000px;
+  transform: translate(0px,150px);
+}
+
+.scelte {
+  display: block;
+  margin: 15px auto;
+  padding: 30px 50px;
+  width: 100%;
+  background-color: #169149;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.scelte:hover {
+  background-color: #00ff6a;
+  transition: 600ms;
+}
+
+#rules{
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  top: 250px;
+  left: 200px;
+  display: none;
+  width: 1500px;
+  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 50px;
+  animation-name: opac;
+  animation-duration: 1s;
+}
+
+#chiudiRules{
+  font-size: 80px;
+}
+
+#bet {
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  top: 250px;
+  left: 200px;
+  display: none;
+  width: 1500px;
+  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 50px;
+  animation-name: opac;
+  animation-duration: 1s;
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+/*.w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}*/
+
