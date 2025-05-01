@@ -43,8 +43,8 @@ draw.volume = 1;
     draw.play();
     
     // Bancone 
-    //let carta = Math.floor(Math.random() * 52) + 1;
-        carta = 2
+    let carta = Math.floor(Math.random() * 52) + 1;
+
     document.getElementById("Banco").innerHTML += '<img src="cards/back.png"id="carta" class="animazione" name="coperta"></img>';
     
         carteUscite[0] = carta;
@@ -97,9 +97,9 @@ draw.volume = 1;
 
         // Bancone - Carta scoperta
         
-        // carta = Math.floor(Math.random() * 52) + 1;
+         carta = Math.floor(Math.random() * 52) + 1;
 
-        carta = i;
+        
         
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -137,7 +137,7 @@ draw.volume = 1;
         else{
             document.getElementById("PunteggioBanco").innerHTML = "Banco: ? +" + (totaleBancone - carta_coperta);
         }
-        i++;
+
     }
 
     async function Stai (){
@@ -225,9 +225,13 @@ draw.volume = 1;
             Sconfitta()
         }
 
-        if (totaleTu == 21 || !tirare){
-            Stai()
-            document.getElementById("Double").disabled = true;
+        if (carteUscite.length > 3 ){
+            if (tirare){
+                document.getElementById("Double").disabled = true;
+            }
+            if (totaleTu == 21){
+                Stai()
+            }
         }
 
         document.getElementById("PunteggioTu").innerHTML = "Tu:" + totaleTu

@@ -28,7 +28,7 @@
 }
 
 .nascosto{
-  display:none
+  display:none !important;
 }
 
 
@@ -127,6 +127,13 @@ body{
   /*transform: translate(350%,-120%) !important;*/
   animation-name: opac;
 }
+
+#Pareggio{
+  top: 500px;
+  left: 100px;
+  display: block;
+}
+
 .transizione {
 
   transition: 1s !important;
