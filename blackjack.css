@@ -119,7 +119,7 @@ body{
   left: 1150px;
 }
 
-#Sconfitta,#Vittoria{
+#Sconfitta,#Vittoria, #Pareggio{
   position: absolute !important;
   float: none !important;
   top: 120px;

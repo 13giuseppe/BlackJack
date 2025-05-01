@@ -12,9 +12,15 @@ var tirare = true;
 var winstreak = 0;
 var Valorepuntata = 0
 var winstreak = 0;
+var i=3;
+
 
 
 draw.volume = 1;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     function BlackJackCheck (){
         if (totaleBancone == 21){
@@ -37,8 +43,8 @@ draw.volume = 1;
     draw.play();
     
     // Bancone 
-    let carta = Math.floor(Math.random() * 52) + 1;
-
+    //let carta = Math.floor(Math.random() * 52) + 1;
+        carta = 2
     document.getElementById("Banco").innerHTML += '<img src="cards/back.png"id="carta" class="animazione" name="coperta"></img>';
     
         carteUscite[0] = carta;
@@ -78,8 +84,11 @@ draw.volume = 1;
 
     }
     
-    function BancoCartaScoperta(){
+    async function BancoCartaScoperta(){
 
+
+
+        
         document.querySelectorAll("#carta").forEach(el => {
             el.classList.remove('animazione');
           });
@@ -88,7 +97,9 @@ draw.volume = 1;
 
         // Bancone - Carta scoperta
         
-        carta = Math.floor(Math.random() * 52) + 1;
+        // carta = Math.floor(Math.random() * 52) + 1;
+
+        carta = i;
         
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -97,6 +108,7 @@ draw.volume = 1;
         carteUscite.push(carta);
         
         document.getElementById("Banco").innerHTML += '<img src="cards/'+ carta +'.png" id="carta" class="animazione"></img>';;
+        
         
         //Se esce un jack,regina o re
         
@@ -125,16 +137,16 @@ draw.volume = 1;
         else{
             document.getElementById("PunteggioBanco").innerHTML = "Banco: ? +" + (totaleBancone - carta_coperta);
         }
+        i++;
     }
 
-    function Stai (){
+    async function Stai (){
 
         tirare = false
         
         document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
 
         console.log(carteUscite[0])
-
 
         document.getElementById("PunteggioBanco").innerHTML= "Banco:" + totaleBancone
 
@@ -145,24 +157,23 @@ draw.volume = 1;
 
         else if (totaleTu > totaleBancone) {
             do{
-                BancoCartaScoperta();
+                await sleep(800)
+                await BancoCartaScoperta()
             }while (totaleBancone < totaleTu)
             if (totaleBancone > 21) {
                 Vittoria()
             }
-            if (totaleBancone > totaleTu) {
+            else if (totaleBancone > totaleTu) {
                 Sconfitta()
             } 
         }
         else if (totaleTu == totaleBancone) {
-            
+            document.getElementById("Pareggio").classList.remove("nascosto")
         }
         
-
         document.getElementById("Tira").disabled = true
         document.getElementById("Stai").disabled = true
         document.getElementById("Double").disabled = true
-
 
     }
 
@@ -205,7 +216,7 @@ draw.volume = 1;
             totaleTu+=carta%13
         }
         
-        if (totaleTu > 21 && AssiTu > 0){
+        if (totaleTu > 22 && AssiTu > 0){
             totaleTu -= 10
             AssiTu --;
         }
@@ -216,11 +227,11 @@ draw.volume = 1;
 
         if (totaleTu == 21 || !tirare){
             Stai()
+            document.getElementById("Double").disabled = true;
         }
 
         document.getElementById("PunteggioTu").innerHTML = "Tu:" + totaleTu
 
-        document.getElementById("Double").disabled = true;
 
     }
     
@@ -236,7 +247,7 @@ draw.volume = 1;
 
     function Start (){
 
-        console.log (Valorepuntata)
+        console.log (document.getElementById("Double").disabled)
 
         tirare = true
         document.getElementById("Tira").disabled = false
@@ -262,7 +273,7 @@ draw.volume = 1;
             document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 100px">Puntata: ${Valorepuntata}€</h1>`;
         }
         else {
-            document.getElementById("Dati").innerHTML = ``;
+            document.getElementById("Dati").innerHTML = "";
         }
 
         document.getElementById("Dati").innerHTML += '<h1 style="font-size: 100px;">Vittorie consecutive: '+ winstreak +'</h1>'
@@ -286,6 +297,7 @@ function esci(){
     document.getElementById("Dati").classList.add("nascosto")
     document.getElementById("Bancone").classList.add("nascosto")
     document.getElementById("menu").classList.remove("nascosto")
+    document.getElementById("Pareggio").classList.add("nascosto")
 }
 
 function riprova(){
@@ -299,6 +311,7 @@ function riprova(){
     document.getElementById("PunteggioTu").innerHTML = "Tu:";
     document.getElementById("PunteggioBanco").innerHTML = "Banco:"
     document.getElementById("Sconfitta").classList.add("nascosto")
+    document.getElementById("Pareggio").classList.add("nascosto")
     Start()
 }
 
@@ -313,7 +326,9 @@ function Continua(){
     document.getElementById("PunteggioTu").innerHTML = "Tu:";
     document.getElementById("PunteggioBanco").innerHTML = "Banco:"
     document.getElementById("Vittoria").classList.add("nascosto")
+    document.getElementById("Pareggio").classList.add("nascosto")
     Start()
+    console.log(winstreak)
 }
 
 
@@ -346,7 +361,7 @@ function Vittoria (){
     document.getElementById("Tira").disabled = true
     document.getElementById("Stai").disabled = true
     document.getElementById("Double").disabled = true
-    winstreak ++;
+    winstreak++;
 }
 
 function Sconfitta (){
