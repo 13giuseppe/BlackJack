@@ -20,7 +20,7 @@
 
     <div id="menu">
         <h1 style="margin-bottom: 30px;">BlackJack</h1>
-        <button class="scelte" onclick="Start()">Inizia</button>
+        <button class="scelte" onclick="if (Valorepuntata == 0){if (confirm('Non hai puntato niente,sicuro di voler continuare?')) {Start()} else{}} else {Start()}">Inizia</button>
         <button class="scelte" onclick="puntata()">Puntata</button>
         <button class="scelte" onclick="Rules()">Regole</button>
 
@@ -75,20 +75,28 @@
         &nbsp;
         <button onclick="Stai()" id="Stai" >Stai</button>
         &nbsp;
-        <button id="Double">Double</button>
+        <button id="Double" onclick="Double()">Double</button>
     </center>
-    <div id="Sconfitta" class="nascosto">
-        <img src="ChatGPT Image 16 apr 2025, 23_27_53.png" alt="" style="width:408px;height: 612px;">
-        <h1> Hai perso!</h1>
-        <button id="Esci" onclick="esci()">Esci</button>
-        <button id="Riprova" onclick="riprova()">Riprova</button>
+    <div id="Sconfitta" class="nascosto transizione">
+        <img src="Sconfitta.png" alt="" style="width:612px;height: 408px;">
+        <br>
+        <center>
+            <button id="Esci" onclick="esci()">Esci</button>
+            &nbsp;
+            <button id="Riprova" onclick="riprova()">Riprova</button>
+        </center>
     </div>
     <div id="Dati" class="nascosto">
         <h1 style="font-size: 100px;">Vittorie consecutive</h1>
     </div>
-    <div id="Vittoria" class="nascosto">
-        <img src="" alt="" style="">
-        <h1>Hai vinto!</h1>
+    <div id="Vittoria" class="nascosto transizione">
+        <img src="Vittoria.png" alt="" style="width:612px;height: 408px;">
+        <br>
+        <center>
+            <button id="Esci" onclick="esci()">Esci</button>
+            &nbsp;
+            <button id="Continua" onclick="Continua()">Continua</button>
+        </center>
     </div>
     </div>
 

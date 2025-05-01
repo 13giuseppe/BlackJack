@@ -1,4 +1,4 @@
-#Tira, #Stai,#Esci,#Riprova {
+#Tira, #Stai, #Double {
   background-color: #04AA6D; /* Green */
   border: none;
   border-radius: 10%;
@@ -10,13 +10,25 @@
   font-size: 50px;
   width: 250px;
   height: 200px;
+}
+
+#Esci,#Riprova,#Continua {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  border-radius: 10%;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 50px;
+  width: 250px;
+  height: 150px;
 
 }
+
 .nascosto{
   display:none
-}
-#Double{
-  display: none;
 }
 
 
@@ -75,12 +87,6 @@ hidden - Defines a hidden border
 #Titolo{
   width: 640px;
   height: 360px;
-
-  
-  transform: translate(-930px,230px);
-  float: none;
-  position: absolute;
-  
 }
 
 body{
@@ -109,15 +115,15 @@ body{
 #Dati {
   position: absolute;
   float: none;
-  bottom: 600px;
-  left: 1400px;
+  bottom: 300px;
+  left: 1150px;
 }
 
 #Sconfitta,#Vittoria{
   position: absolute !important;
   float: none !important;
   top: 120px;
-  right: 120px;
+  
   /*transform: translate(350%,-120%) !important;*/
   animation-name: opac;
 }

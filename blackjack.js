@@ -12,24 +12,23 @@ var tirare = true;
 var winstreak = 0;
 var Valorepuntata = 0
 var winstreak = 0;
-document.getElementById("Budget").innerHTML=budget + "€";
+
 
 draw.volume = 1;
 
     function BlackJackCheck (){
         if (totaleBancone == 21){
-            alert("L'avversario ha fatto BlackJack!")
-            document.getElementById("Tira").disabled = true
-            document.getElementById("Stai").disabled = true
-            document.getElementById("Double").disabled = true
             document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
+            document.getElementById("PunteggioBanco").innerHTML = "Banco: " + (totaleBancone);
+            setTimeout(function() {
+                alert("L'avversario ha fatto BlackJack!");
+            }, 200);
+            Sconfitta()
         }
         if (totaleTu == 21){
             alert("Hai fatto BlackJack! 1.5x ")
-            budget = Valorepuntata * 1.5;
-            document.getElementById("Tira").disabled = true
-            document.getElementById("Stai").disabled = true
-            document.getElementById("Double").disabled = true
+            Valorepuntata = Valorepuntata * 1.5;
+            Vittoria()
         }
     }
 
@@ -66,6 +65,11 @@ draw.volume = 1;
         else {
             totaleBancone+=carta%13
             carta_coperta = carta%13;
+        }
+
+        if (totaleBancone > 21 && AssiBanco > 0){
+            totaleBancone -= 10
+            AssiBanco --;
         }
 
         console.log(carta_coperta)
@@ -144,12 +148,16 @@ draw.volume = 1;
                 BancoCartaScoperta();
             }while (totaleBancone < totaleTu)
             if (totaleBancone > 21) {
-                
+                Vittoria()
             }
-            if (totaleBancone == 21) {
-
+            if (totaleBancone > totaleTu) {
+                Sconfitta()
             } 
         }
+        else if (totaleTu == totaleBancone) {
+            
+        }
+        
 
         document.getElementById("Tira").disabled = true
         document.getElementById("Stai").disabled = true
@@ -196,14 +204,39 @@ draw.volume = 1;
         else {
             totaleTu+=carta%13
         }
-        if (totaleTu > 21){
-            document.getElementById("Sconfitta").classList.remove("nascosto")
-            document.getElementById("Sconfitta").classList.add("transizione")
+        
+        if (totaleTu > 21 && AssiTu > 0){
+            totaleTu -= 10
+            AssiTu --;
         }
+
+        if (totaleTu > 21){
+            Sconfitta()
+        }
+
+        if (totaleTu == 21 || !tirare){
+            Stai()
+        }
+
         document.getElementById("PunteggioTu").innerHTML = "Tu:" + totaleTu
+
+        document.getElementById("Double").disabled = true;
+
     }
     
+    function Double(){
+        
+        tirare = false;
+
+        Valorepuntata = Valorepuntata * 2;
+
+        TiraCarta()
+
+    }
+
     function Start (){
+
+        console.log (Valorepuntata)
 
         tirare = true
         document.getElementById("Tira").disabled = false
@@ -225,7 +258,12 @@ draw.volume = 1;
         
         document.getElementById("Dati").classList.remove("nascosto");
 
-        document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 100px">Puntata: ${Valorepuntata}</h1>`;
+        if (Valorepuntata != 0){
+            document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 100px">Puntata: ${Valorepuntata}€</h1>`;
+        }
+        else {
+            document.getElementById("Dati").innerHTML = ``;
+        }
 
         document.getElementById("Dati").innerHTML += '<h1 style="font-size: 100px;">Vittorie consecutive: '+ winstreak +'</h1>'
 
@@ -237,7 +275,7 @@ draw.volume = 1;
         
         setTimeout (TiraCarta,2300)
         
-        setTimeout (BlackJackCheck, 2500)
+        setTimeout (BlackJackCheck, 2600)
 
         
 }
@@ -255,7 +293,7 @@ function riprova(){
     totaleTu = 0;
     AssiTu = 0;
     AssiBanco = 0;
-    carteUscite = []
+    carteUscite = [];
     document.getElementById("Tu").innerHTML = "";
     document.getElementById("Banco").innerHTML = "";
     document.getElementById("PunteggioTu").innerHTML = "Tu:";
@@ -264,11 +302,28 @@ function riprova(){
     Start()
 }
 
+function Continua(){
+    totaleBancone = 0;
+    totaleTu = 0;
+    AssiTu = 0;
+    AssiBanco = 0;
+    carteUscite = [];
+    document.getElementById("Tu").innerHTML = "";
+    document.getElementById("Banco").innerHTML = "";
+    document.getElementById("PunteggioTu").innerHTML = "Tu:";
+    document.getElementById("PunteggioBanco").innerHTML = "Banco:"
+    document.getElementById("Vittoria").classList.add("nascosto")
+    Start()
+}
+
+
 function puntata (){
+    document.getElementById("Budget").innerHTML=budget + "€";
     document.getElementById("bet").style.display="block";
 }
+
 function chiudiPuntata(){
-    var Valorepuntata = document.getElementById("ValoreBet").value;
+    Valorepuntata = document.getElementById("ValoreBet").value;
     if (Valorepuntata == 0 || Valorepuntata == ""){
         if (confirm("Non hai puntato niente,sicuro di voler continuare?")){
             document.getElementById("bet").style.display="none";
@@ -278,17 +333,29 @@ function chiudiPuntata(){
         alert ("Non hai tutti quei soldi,\nProva con una puntata più piccola!")
     }
     else{
-        console.log (Valorepuntata)
+        
         document.getElementById("bet").style.display="none";
     }
+    console.log (Valorepuntata)
 }
 
 function Vittoria (){
     budget += Valorepuntata
+    document.getElementById("Vittoria").classList.remove("nascosto")
+    document.getElementById("Vittoria").
     document.getElementById("Tira").disabled = true
     document.getElementById("Stai").disabled = true
     document.getElementById("Double").disabled = true
     winstreak ++;
+}
+
+function Sconfitta (){
+    budget -= Valorepuntata
+    document.getElementById("Sconfitta").classList.remove("nascosto")
+    document.getElementById("Tira").disabled = true
+    document.getElementById("Stai").disabled = true
+    document.getElementById("Double").disabled = true
+    winstreak = 0;
 }
 
 function Rules() {
