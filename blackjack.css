@@ -14,7 +14,7 @@
 
 #Esci,#Riprova,#Continua {
   background-color: #04AA6D; /* Green */
-  border: none;
+  border: solid black;
   border-radius: 10%;
   color: white;
   padding: 15px 32px;
@@ -30,6 +30,8 @@
 .nascosto{
   display:none !important;
 }
+
+
 
 
 /* 
@@ -52,6 +54,8 @@ hidden - Defines a hidden border
   position: relative;
   width: 170px;     /*1,2x*/
   height: 228px;    /*1,2x*/
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .animazione{
@@ -69,6 +73,7 @@ hidden - Defines a hidden border
 }
 
 #Bancone {
+  color: black;
   background-color: green;
   background-image: linear-gradient(rgb(2, 80, 2));
   border: 20px solid rgb(73, 30, 2);
@@ -87,10 +92,6 @@ hidden - Defines a hidden border
 #Titolo{
   width: 640px;
   height: 360px;
-}
-
-body{
-  background-color: #000000 !important;
 }
 
 .noanimations {
@@ -115,14 +116,18 @@ body{
 #Dati {
   position: absolute;
   float: none;
-  bottom: 300px;
-  left: 1150px;
+  bottom: 600px;
+  left: 100px;
 }
 
 #Sconfitta,#Vittoria, #Pareggio{
   position: absolute !important;
   float: none !important;
-  top: 120px;
+  top:0%;
+  margin-left: -50px;
+  width: 1900px;
+  height: 1400px;
+  backdrop-filter: blur(10px);
   
   /*transform: translate(350%,-120%) !important;*/
   animation-name: opac;
@@ -135,15 +140,13 @@ body{
 }
 
 .transizione {
-
-  transition: 1s !important;
   animation-name: opac;
-  animation-duration: 6s;
+  animation-duration: 2s;
 }
 
 @keyframes opac{from{opacity:0} to{opacity:1}}
 
-#menu {
+/*#menu {
   background-color: green;
   padding: 100px;
   border-radius: 20px;
@@ -151,7 +154,7 @@ body{
   text-align: center;
   width: 1000px;
   transform: translate(0px,150px);
-}
+}*/
 
 .scelte {
   display: block;
@@ -173,6 +176,7 @@ body{
 }
 
 #rules{
+  color: black;
   background-color: white;
   padding: 10px;
   border-radius: 6px;
@@ -196,6 +200,7 @@ body{
 }
 
 #bet {
+  color: black;
   background-color: white;
   padding: 10px;
   border-radius: 6px;
@@ -216,5 +221,77 @@ body{
   padding-top: 100px;
 }
 
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  background-color: #000000;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 40px;
+}
+
+#menu{
+  background-color: rgb(60, 126, 60);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 150px;
+  padding-top: 200px;
+  height: 900px;
+  border: 10px solid rgb(73, 30, 2);
+  border-radius: 0 0 100% 100%;
+  animation-name: opac;
+  animation-duration: 3s;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding-top: 50px;
+  padding-bottom: 75px;
+  margin: 100px;
+  width: 200px;
+  height: 270px;
+  cursor: pointer;
+  padding-top: 100px;
+  transition: transform 2s;
+  transition-delay: 0.2s;
+}
+
+#gioca{
+  top: 560px;
+  transform: translate(0px,-280px);
+}
+#puntata{
+  top: 180px;
+  transform: rotate(-25deg);
+}
+#come{
+  top: 180px;
+  padding-top: 70px !important;
+  transform: rotate(25deg);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.card p {
+  margin-top: 10px;
+  font-size: 18px;
+}
 /*.w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}*/
 

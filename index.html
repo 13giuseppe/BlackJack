@@ -13,11 +13,12 @@
 
 </head>
 
-<body>
+<body onload="Dati()">
 
     <!--Menu - Catello Staiano-->
     <center>
 
+    <!--
     <div id="menu">
         <h1 style="margin-bottom: 30px;">BlackJack</h1>
         <button class="scelte" onclick="if (Valorepuntata == 0){if (confirm('Non hai puntato niente,sicuro di voler continuare?')) {Start()} else{}} else {Start()}">Inizia</button>
@@ -25,10 +26,30 @@
         <button class="scelte" onclick="Rules()">Regole</button>
 
     </div>
+    -->
+    
+        <div id="menu">
+
+            <img src="ChatGPT Image 13 apr 2025, 18_28_47.png" alt="" id="Titolo" style="position: absolute; top: 60px;">
+    
+            <div class="card"  onclick="rules()">
+                <h1 style="color: black;"><strong>Come si gioca?</strong></h1>
+            </div>
+            <div class="card"  onclick="if (Valorepuntata == 0){if (confirm('Non hai puntato niente,sicuro di voler continuare?')) {Start()} else{}} else {Start()}">
+                <h1 style="color: black; font-size: 50px;"><strong>Gioca</strong></h1>
+            </div>
+            <div class="card"  onclick="puntata()">
+                <h1 style="color: black;"><strong>Puntata</strong></h1>
+            </div>
+            <div id="Dati">
+                <h1 style="font-size: 100px;"></h1>
+            </div>
+          </div>
+
 
 
     <div class="" id="rules">
-        <strong>Quali sono le regole del BlackJack?</strong>
+        <strong>Come si gioca a BlackJack?</strong>
         <ul>
           <li>Ottieni un punteggio più vicino a 21 rispetto al banco.</li>
           <li>Non superare 21 o perdi (bust).</li>
@@ -47,14 +68,11 @@
         <button onclick="chiudiPuntata()">Conferma</button>
     </div>
     </center>
-
+    
 
     <!-- Area di gioco-->
     <div id="Bancone" class="nascosto">
-    <center>
-        <img src="ChatGPT Image 13 apr 2025, 18_28_47.png" alt="" id="Titolo">
-    </center><br>
-    
+    <div id="TornaIndietro" onclick="esci()" style="cursor: pointer;">Torna Indietro</div>
     <!-- Banco-->
     
     <center>
@@ -78,8 +96,9 @@
         <button id="Double" onclick="Double()">Double</button>
         &nbsp;
     </center>
+
     <div id="Sconfitta" class="nascosto transizione">
-        <img src="Sconfitta.png" alt="" style="width:612px;height: 408px;">
+        <img src="Sconfitta.png" alt="" style="width: 1224px;height: 816px; margin-top: -60px;">
         <br>
         <center>
             <button id="Esci" onclick="esci()">Esci</button>
@@ -87,18 +106,21 @@
             <button id="Riprova" onclick="riprova()">Riprova</button>
         </center>
     </div>
-    <div id="Dati" class="nascosto">
 
-    </div>
-    <div id="Vittoria" class="nascosto transizione">
-        <img src="Vittoria.png" alt="" style="width:612px;height: 408px;">
-        <br>
-        <center>
-            <button id="Esci" onclick="esci()">Esci</button>
-            &nbsp;
-            <button id="Continua" onclick="Continua()">Continua</button>
-        </center>
-    </div>
+    <center>
+
+        <div id="Vittoria" class="nascosto transizione">
+            <img src="Vittoria.png" alt="" style="width: 1224px;height: 816px; margin-top: -60px;">
+            <br>
+            <center>
+                <button id="Esci" onclick="esci()">Esci</button>
+                &nbsp;
+                <button id="Continua" onclick="Continua()">Continua</button>
+            </center>
+        </div>
+
+    </center>
+
     <div id="Pareggio" class="nascosto transizione">
         <center>
             <h1 style="font-size: 100px;">Pareggio!</h1>

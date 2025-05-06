@@ -12,17 +12,41 @@ var tirare = true;
 var winstreak = 0;
 var Valorepuntata = 0
 var winstreak = 0;
-var i=3;
+var i=0;
 
 
 
 draw.volume = 1;
 
+    window.onload = () =>{
+        document.querySelectorAll(".card")[0].id = "come";
+        document.querySelectorAll(".card")[1].id = "gioca";
+        document.querySelectorAll(".card")[2].id = "puntata";
+    }
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    function Dati(){
+        if (Valorepuntata != 0){
+            document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 50px;">Puntata: ${Valorepuntata}€</h1>`;
+        }
+        else {
+            document.getElementById("Dati").innerHTML = "";
+        }
+
+        document.getElementById("Dati").innerHTML += '<h1 style="font-size: 50px;">Vittorie </br>consecutive: '+ winstreak +'</h1>'
+    }
+
     function BlackJackCheck (){
+        if (totaleBancone == 21 && totaleTu == 21){
+            alert("Avete fatto entrambi BlackJack!")
+            document.getElementById("Pareggio").classList.remove("nascosto");
+            document.getElementById("Tira").disabled = true
+            document.getElementById("Stai").disabled = true
+            document.getElementById("Double").disabled = true
+        }
         if (totaleBancone == 21){
             document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
             document.getElementById("PunteggioBanco").innerHTML = "Banco: " + (totaleBancone);
@@ -43,7 +67,9 @@ draw.volume = 1;
     draw.play();
     
     // Bancone 
-    let carta = Math.floor(Math.random() * 52) + 1;
+    //let carta = Math.floor(Math.random() * 52) + 1;
+
+    carta = 1
 
     document.getElementById("Banco").innerHTML += '<img src="cards/back.png"id="carta" class="animazione" name="coperta"></img>';
     
@@ -85,9 +111,6 @@ draw.volume = 1;
     }
     
     async function BancoCartaScoperta(){
-
-
-
         
         document.querySelectorAll("#carta").forEach(el => {
             el.classList.remove('animazione');
@@ -97,9 +120,9 @@ draw.volume = 1;
 
         // Bancone - Carta scoperta
         
-         carta = Math.floor(Math.random() * 52) + 1;
+         //carta = Math.floor(Math.random() * 52) + 1;
 
-        
+        carta = 2;
         
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -161,14 +184,16 @@ draw.volume = 1;
                 await BancoCartaScoperta()
             }while (totaleBancone < totaleTu)
             if (totaleBancone > 21) {
-                Vittoria()
+                await sleep(800)
+                await Vittoria()
             }
             else if (totaleBancone > totaleTu) {
-                Sconfitta()
+                await sleep(800)
+                await Sconfitta()
             } 
         }
         else if (totaleTu == totaleBancone) {
-            document.getElementById("Pareggio").classList.remove("nascosto")
+            document.getElementById("Pareggio").classList.remove("nascosto");
         }
         
         document.getElementById("Tira").disabled = true
@@ -187,7 +212,9 @@ draw.volume = 1;
           });
     
     
-        let carta = Math.floor(Math.random() * 52) + 1;
+        carta = Math.floor(Math.random() * 52) + 1;
+
+        carta = 14 + i
 
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -225,18 +252,18 @@ draw.volume = 1;
             Sconfitta()
         }
 
-        if (carteUscite.length > 3 ){
+        if (carteUscite.length > 4 ){
             if (tirare){
                 document.getElementById("Double").disabled = true;
             }
-            if (totaleTu == 21){
+            if (totaleTu == 21 || !tirare){
                 Stai()
             }
         }
 
         document.getElementById("PunteggioTu").innerHTML = "Tu:" + totaleTu
 
-
+        i++;
     }
     
     function Double(){
@@ -250,6 +277,8 @@ draw.volume = 1;
     }
 
     function Start (){
+
+        i=0
 
         console.log (document.getElementById("Double").disabled)
 
@@ -271,16 +300,7 @@ draw.volume = 1;
 
         document.getElementById("Bancone").classList.remove("nascosto")
         
-        document.getElementById("Dati").classList.remove("nascosto");
-
-        if (Valorepuntata != 0){
-            document.getElementById("Dati").innerHTML = `<h1 style ="font-size: 100px">Puntata: ${Valorepuntata}€</h1>`;
-        }
-        else {
-            document.getElementById("Dati").innerHTML = "";
-        }
-
-        document.getElementById("Dati").innerHTML += '<h1 style="font-size: 100px;">Vittorie consecutive: '+ winstreak +'</h1>'
+        document.getElementById("Dati").classList.add("nascosto");
 
         setTimeout (BancoCartaCoperta,300);
             
@@ -298,7 +318,7 @@ draw.volume = 1;
 function esci(){
     document.getElementById("Sconfitta").classList.add("nascosto")
     document.getElementById("Vittoria").classList.add("nascosto")
-    document.getElementById("Dati").classList.add("nascosto")
+    document.getElementById("Dati").classList.remove("nascosto")
     document.getElementById("Bancone").classList.add("nascosto")
     document.getElementById("menu").classList.remove("nascosto")
     document.getElementById("Pareggio").classList.add("nascosto")
@@ -332,7 +352,6 @@ function Continua(){
     document.getElementById("Vittoria").classList.add("nascosto")
     document.getElementById("Pareggio").classList.add("nascosto")
     Start()
-    console.log(winstreak)
 }
 
 
@@ -355,17 +374,17 @@ function chiudiPuntata(){
         
         document.getElementById("bet").style.display="none";
     }
-    console.log (Valorepuntata)
+    Dati();
 }
 
 function Vittoria (){
-    budget += Valorepuntata
+    budget -= -Valorepuntata;
     document.getElementById("Vittoria").classList.remove("nascosto")
-    document.getElementById("Vittoria").
     document.getElementById("Tira").disabled = true
     document.getElementById("Stai").disabled = true
     document.getElementById("Double").disabled = true
     winstreak++;
+    Dati()
 }
 
 function Sconfitta (){
@@ -375,6 +394,7 @@ function Sconfitta (){
     document.getElementById("Stai").disabled = true
     document.getElementById("Double").disabled = true
     winstreak = 0;
+    Dati()
 }
 
 function Rules() {
