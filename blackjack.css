@@ -31,22 +31,6 @@
   display:none !important;
 }
 
-
-
-
-/* 
-dotted - Defines a dotted border
-dashed - Defines a dashed border
-solid - Defines a solid border
-double - Defines a double border
-groove - Defines a 3D grooved border. The effect depends on the border-color value
-ridge - Defines a 3D ridged border. The effect depends on the border-color value
-inset - Defines a 3D inset border. The effect depends on the border-color value
-outset - Defines a 3D outset border. The effect depends on the border-color value
-none - Defines no border
-hidden - Defines a hidden border
-*/
-
 #carta {
   border: 4px ridge black;
   border-radius: 8%;
@@ -98,7 +82,6 @@ hidden - Defines a hidden border
   animation: none !important;
 }
 
-/* Idea di Vincenzo Starace */
 #carta:hover{
   
   transform: scale(1.2) !important;
@@ -117,7 +100,7 @@ hidden - Defines a hidden border
   position: absolute;
   float: none;
   bottom: 600px;
-  left: 100px;
+  left: 4%;
 }
 
 #Sconfitta,#Vittoria, #Pareggio{
@@ -125,17 +108,18 @@ hidden - Defines a hidden border
   float: none !important;
   top:0%;
   margin-left: -50px;
-  width: 1900px;
-  height: 1400px;
+  width: 100%;
+  height: 100%;
   backdrop-filter: blur(10px);
   
   /*transform: translate(350%,-120%) !important;*/
   animation-name: opac;
 }
 
+
 #Pareggio{
-  top: 500px;
-  left: 100px;
+  padding-top: 300px;
+  left: 30px;
   display: block;
 }
 
@@ -145,16 +129,6 @@ hidden - Defines a hidden border
 }
 
 @keyframes opac{from{opacity:0} to{opacity:1}}
-
-/*#menu {
-  background-color: green;
-  padding: 100px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-  text-align: center;
-  width: 1000px;
-  transform: translate(0px,150px);
-}*/
 
 .scelte {
   display: block;

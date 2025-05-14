@@ -12,7 +12,7 @@ var tirare = true;
 var winstreak = 0;
 var Valorepuntata = 0
 var winstreak = 0;
-var i=0;
+
 
 
 
@@ -67,9 +67,7 @@ draw.volume = 1;
     draw.play();
     
     // Bancone 
-    //let carta = Math.floor(Math.random() * 52) + 1;
-
-    carta = 1
+    let carta = Math.floor(Math.random() * 52) + 1;
 
     document.getElementById("Banco").innerHTML += '<img src="cards/back.png"id="carta" class="animazione" name="coperta"></img>';
     
@@ -103,8 +101,6 @@ draw.volume = 1;
             totaleBancone -= 10
             AssiBanco --;
         }
-
-        console.log(carta_coperta)
         
         console.log(totaleBancone);
 
@@ -120,9 +116,7 @@ draw.volume = 1;
 
         // Bancone - Carta scoperta
         
-         //carta = Math.floor(Math.random() * 52) + 1;
-
-        carta = 2;
+         carta = Math.floor(Math.random() * 52) + 1;
         
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -164,8 +158,10 @@ draw.volume = 1;
     }
 
     async function Stai (){
-
-        tirare = false
+        
+        document.getElementById("Tira").disabled = true
+        document.getElementById("Stai").disabled = true
+        document.getElementById("Double").disabled = true
         
         document.getElementsByName("coperta")[0].src = "cards/"+ carteUscite[0] + ".png"
 
@@ -180,25 +176,27 @@ draw.volume = 1;
 
         else if (totaleTu > totaleBancone) {
             do{
-                await sleep(800)
+                await sleep(500)
                 await BancoCartaScoperta()
             }while (totaleBancone < totaleTu)
             if (totaleBancone > 21) {
-                await sleep(800)
+                await sleep(600)
                 await Vittoria()
             }
             else if (totaleBancone > totaleTu) {
-                await sleep(800)
+                await sleep(600)
                 await Sconfitta()
-            } 
+            }
+            else if (totaleBancone == totaleTu){
+                await (600)
+                await document.getElementById("Pareggio").classList.remove("nascosto");
+            }
         }
         else if (totaleTu == totaleBancone) {
-            document.getElementById("Pareggio").classList.remove("nascosto");
+            await (600)
+            await document.getElementById("Pareggio").classList.remove("nascosto");
         }
         
-        document.getElementById("Tira").disabled = true
-        document.getElementById("Stai").disabled = true
-        document.getElementById("Double").disabled = true
 
     }
 
@@ -213,8 +211,6 @@ draw.volume = 1;
     
     
         carta = Math.floor(Math.random() * 52) + 1;
-
-        carta = 14 + i
 
         while (carteUscite.includes(carta)){
             carta = Math.floor(Math.random() * 52) + 1;
@@ -252,7 +248,7 @@ draw.volume = 1;
             Sconfitta()
         }
 
-        if (carteUscite.length > 4 ){
+        else if (carteUscite.length > 4 ){
             if (tirare){
                 document.getElementById("Double").disabled = true;
             }
@@ -263,7 +259,6 @@ draw.volume = 1;
 
         document.getElementById("PunteggioTu").innerHTML = "Tu:" + totaleTu
 
-        i++;
     }
     
     function Double(){
@@ -277,10 +272,6 @@ draw.volume = 1;
     }
 
     function Start (){
-
-        i=0
-
-        console.log (document.getElementById("Double").disabled)
 
         tirare = true
         document.getElementById("Tira").disabled = false
